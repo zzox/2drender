@@ -1,3 +1,4 @@
+import { Height, Width } from './core/const'
 import { keys, justPressed, clearJustPressed } from './core/keys'
 import { Scene } from './core/scene'
 import { TestScene } from './scenes/test-scene'
@@ -6,9 +7,6 @@ import { average } from './util/util'
 
 const canvas = document.getElementById('main-canvas') as HTMLCanvasElement
 const fixed = document.getElementsByClassName('fixed')[0] as HTMLDivElement
-
-const width = 240
-const height = 160
 
 let scene:Scene
 let debugScale = 0
@@ -43,7 +41,7 @@ const draw = () => {
   const renderStart = performance.now()
 
 //   clear()
-  const imgData = context.createImageData(width, height)
+  const imgData = context.createImageData(Width, Height)
   imgData.data.set(scene.draw().data)
   context.putImageData(imgData, 0, 0)
 
@@ -140,7 +138,7 @@ const run = async () => {
   image.src = './assets/tiles.png'
   context = canvas.getContext('2d')!
 
-  if (width !== canvas.width || height !== canvas.height) {
+  if (Width !== canvas.width || Height !== canvas.height) {
     throw 'Wrong size canvas'
   }
 
@@ -189,7 +187,7 @@ const run = async () => {
   window.onresize = resizeCanvas
   resizeCanvas()
 
-  scene = new TestScene(width, height)
+  scene = new TestScene(Width, Height)
 //   scene.create()
 }
 

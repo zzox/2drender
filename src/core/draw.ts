@@ -48,6 +48,19 @@ export const drawTile = (source:Buffer, target:Buffer, fromTile:number, toTile:n
   drawImage(source, target, toX * TileWidth, toY * TileHeight, fromX * TileWidth, fromY * TileHeight, TileWidth, TileHeight)
 }
 
+export const drawSpacedTile = (source:Buffer, target:Buffer, fromTile:number, toTile:number, toSpacing:number = 1) => {
+  const fromX = fromTile % (source.width / TileWidth)
+  const fromY = Math.floor(fromTile / (source.width / TileWidth))
+
+  const toX = toTile % ((target.width - toSpacing) / (TileWidth + toSpacing))
+  const toY = Math.floor(toTile / ((target.width - toSpacing) / (TileWidth + toSpacing)))
+
+  drawImage(source, target,
+    toSpacing + toX * (TileWidth + toSpacing), toSpacing + toY * (TileHeight + toSpacing),
+    fromX * TileWidth, fromY * TileHeight, TileWidth, TileHeight
+  )
+}
+
 export const drawImage = (source:Buffer, target:Buffer, x:number, y:number, sx:number, sy:number, sw:number, sh:number, flipX:boolean = false, a:number = 1.0) => {
   for (let i = sx; i < sx + sw; i++) {
     if (x + i - sx < 0 || x + i - sx >= target.width) continue

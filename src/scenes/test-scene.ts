@@ -1,6 +1,6 @@
 import { Buffer, createBuffer } from '../core/buffer'
-import { FPS, NumTilesHeight, NumTilesWidth, TileHeight, TileWidth } from '../core/const'
-import { clear, Color, color, drawImage, drawPixel, fillRect, drawTile, drawRect } from '../core/draw'
+import { FPS, TileHeight, TileWidth } from '../core/const'
+import { clear, Color, color, drawImage, drawPixel, fillRect, drawTile, drawRect, drawSpacedTile } from '../core/draw'
 import { justPressed, keys } from '../core/keys'
 import { Scene } from '../core/scene'
 import { Black, Grey, White, Transparent, Orange, half, Pink, Yellow } from '../data/colors'
@@ -62,6 +62,10 @@ export class TestScene implements Scene {
     if (Debug.on) {}
 
     fillRect(this.buf, 12, 4, 24, 12, Orange)
+
+    for (let i = 0; i < 100; i++) {
+      drawSpacedTile(this.image!, this.buf, 0, Math.floor(Math.random() * 300))
+    }
 
     // stamp `mask` data onto `cover`
     for (let i = 0; i < this.cover.data.length; i++) {
